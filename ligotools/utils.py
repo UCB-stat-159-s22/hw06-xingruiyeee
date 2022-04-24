@@ -44,3 +44,23 @@ def reqshift(data,fshift=100,sample_rate=4096):
     y[0:nbins]=0.
     z = np.fft.irfft(y)
     return z
+
+
+
+#Make new plotting utility in utils.py
+
+def plot_code(make_plots, det, strain_L1_whitenbp, strain_H1_whitenbp, template_match, time, timemax, SNR, eventname,                  plottype, tevent,template_fft, datafreq, d_eff, freqs, data_psd, fs):
+    
+        if make_plots:
+
+        # plotting changes for the detectors:
+        if det is 'L1': 
+            pcolor='g'
+            strain_whitenbp = strain_L1_whitenbp
+            template_L1 = template_match.copy()
+        else:
+            pcolor='r'
+            strain_whitenbp = strain_H1_whitenbp
+            template_H1 = template_match.copy()
+
+        # -- Plot the result
