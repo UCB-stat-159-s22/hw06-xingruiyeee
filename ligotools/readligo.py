@@ -115,6 +115,8 @@ def read_hdf5(filename, readstrain=True):
     """
     Helper function to read HDF5 files
     """
+    print("read_hdf5")
+    
     import h5py
     dataFile = h5py.File(filename, 'r')
 
@@ -129,22 +131,25 @@ def read_hdf5(filename, readstrain=True):
     #-- Read the DQ information
     dqInfo = dataFile['quality']['simple']
     qmask = dqInfo['DQmask'][...]
-    shortnameArray = dqInfo['DQShortnames'].value
+    #shortnameArray = dqInfo['DQShortnames'].value
+    shortnameArray = dqInfo['DQShortnames'][()]
     shortnameList  = list(shortnameArray)
     
     # -- Read the INJ information
     injInfo = dataFile['quality/injections']
     injmask = injInfo['Injmask'][...]
-    injnameArray = injInfo['InjShortnames'].value
+    #injnameArray = injInfo['InjShortnames'].value
+    injnameArray = injInfo['InjShortnames'][()]
     injnameList  = list(injnameArray)
     
     #-- Read the meta data
     meta = dataFile['meta']
-    gpsStart = meta['GPSstart'].value    
+    #gpsStart = meta['GPSstart'].value
+    gpsStart = meta['GPSstart'][()]   
     
     dataFile.close()
     return strain, gpsStart, ts, qmask, shortnameList, injmask, injnameList
-
+    
 def loaddata(filename, ifo=None, tvec=True, readstrain=True):
     """
     The input filename should be a LOSC .hdf5 file or a LOSC .gwf
@@ -160,7 +165,7 @@ def loaddata(filename, ifo=None, tvec=True, readstrain=True):
          dictionary of meta values.
     CHANNEL_DICT is a dictionary of data quality channels    
     """
-
+    
     # -- Check for zero length file
     if os.stat(filename).st_size == 0:
         return None, None, None
