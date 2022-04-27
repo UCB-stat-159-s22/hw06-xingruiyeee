@@ -32,6 +32,5 @@ env:
 
 .PHONY : variables
 variables :
-    @echo PNG_FILES: $(PNG_FILES)
-    @echo CSV_FILES: $(CSV_FILES)
-    @echo CSV_FILES: $(WAV_FILES)
+    PNG_FILES: $(PNG_FILES)
+    CSV_FILES: $(WAV_FILES)
