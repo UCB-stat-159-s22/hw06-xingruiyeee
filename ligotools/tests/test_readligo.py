@@ -3,8 +3,6 @@ import pytest
 import numpy as np
 from ligotools import readligo as rl 
 from scipy import signal
-from scipy.interpolate import interp1d
-from scipy.signal import butter, filtfilt, iirdesign, zpk2tf, freqz
 import h5py
 import json
 
@@ -25,10 +23,42 @@ strain_H1, time_H1, chan_dict_H1 = rl.loaddata("data/" + fn_H1, 'H1')
 strain_L1, time_L1, chan_dict_L1 = rl.loaddata("data/" + fn_L1, 'L1')
 
 
-#time = time_H1
 
-def test_len_time_h1():
+def test_reading_hdf5_L1():
+    filename = "data/L-L1_LOSC_4_V2-1126259446-32.hdf5"
+    strain
+    assert len(strain) != 0
+
+    
+    
+def test_reading_hdf5_H1():
+    filename = "data/H-H1_LOSC_4_V2-1126259446-32.hdf5"
+    strain, gpsStart, ts, qmask, shortnameList, injmask, injnameList = rl.read_hdf5(filename)
+    
+    assert len(shortnameList) != 0
+    
+
+time = time_H1
+dt = time[1] - time[0]
+
+def test_loaddata_H1():
+   
     assert len(time_H1) == 131072
+
+    
+def test_loaddata_L1():
+    
+    assert len(strain_L1) == 131072
+    
+def test_reading_hdf5_L1():
+    filename = "data/L-L1_LOSC_4_V2-1126259446-32.hdf5"
+    strain, gpsStart, ts, qmask, shortnameList, injmask, injnameList = rl.read_hdf5(filename)
+
+    assert len(strain) != 0
+    assert len(shortnameList) != 0
+
+    
+    
 
 
 

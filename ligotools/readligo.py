@@ -515,8 +515,3 @@ def getsegs(start, stop, ifo, flag='DATA', filelist=None):
     segList = [seg for seg in segList if seg is not None]
 
     return SegmentList(segList)
-
-
-def test_len_time_h1():
-
-    assert len(time_H1) == 131072
